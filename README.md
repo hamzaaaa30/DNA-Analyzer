@@ -1,8 +1,12 @@
-# 🧬 DNA Analyzer
+🧬 DNA Analyzer
 
 A simple web-based DNA sequence analysis tool built as a Bioinformatics learning project.
 
-## 🔬 Features
+🌐 Live Demo
+
+👉 "Open DNA Analyzer" (https://dna-analyzer-usqk.onrender.com)
+
+🔬 Features
 
 - DNA sequence analysis
 - DNA sequence length calculation
@@ -16,25 +20,26 @@ A simple web-based DNA sequence analysis tool built as a Bioinformatics learning
 - Protein sequence translation
 - FASTA file support
 
-## 🛠️ Technologies Used
+🛠️ Technologies Used
 
 - HTML
 - CSS
 - JavaScript
 - Python
 - Flask
+- Gunicorn
 
-## 🎯 Purpose
+🎯 Purpose
 
 This project was created to practice programming and apply basic bioinformatics concepts to DNA sequence analysis.
 
-## 🚀 Future Improvements
+🚀 Future Improvements
 
 - Better mobile interface
 - More sequence analysis tools
 - Improved visualizations
 - More advanced bioinformatics analysis
 
-## 👨‍💻 Author
+👨‍💻 Author
 
 Mohd Hamza Shahid
