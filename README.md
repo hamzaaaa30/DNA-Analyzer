@@ -40,6 +40,17 @@ This project was created to practice programming and apply basic bioinformatics 
 - Improved visualizations
 - More advanced bioinformatics analysis
 
+## 📸 Screenshots
+
+### Homepage
+![DNA Analyzer Homepage](images/homepage.png)
+
+### Analysis Results
+![Analysis Results](images/analysis-results.png)
+
+### ORF and Protein Analysis
+![ORF and Protein Analysis](images/orf-protein.png)
+
 👨‍💻 Author
 
 Mohd Hamza Shahid
