@@ -43,13 +43,13 @@ This project was created to practice programming and apply basic bioinformatics 
 ## 📸 Screenshots
 
 ### Homepage
-![DNA Analyzer Homepage](images/homepage.png)
+![DNA Analyzer Homepage](homepage.jpg)
 
 ### Analysis Results
-![Analysis Results](images/analysis-results.png)
+![Analysis Results](analysis-results.jpg)
 
 ### ORF and Protein Analysis
-![ORF and Protein Analysis](images/orf-protein.png)
+![ORF and Protein Analysis](orf-protein.jpg)
 
 👨‍💻 Author
 
