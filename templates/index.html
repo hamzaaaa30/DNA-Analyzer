@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DNA Analyzer</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7fa;
+            color: #1d2939;
+        }
+
+        .header {
+            background: #123b4a;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 34px;
+        }
+
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 160px;
+            padding: 15px;
+            border: 1px solid #ccd5dc;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 15px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #287b8f;
+        }
+
+        .button {
+            margin-top: 15px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #287b8f;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        .upload {
+            border: 2px dashed #b9c8cf;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin: 10px;
+            padding: 8px;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            color: #7b8790;
+        }
+
+        .error {
+            background: #fff0f0;
+            border-left: 5px solid #d33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #eefaf1;
+            border-left: 5px solid #3b9b57;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .stat {
+            background: #f3f7fa;
+            padding: 18px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .chart {
+    margin-top: 20px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.bar-label {
+    width: 30px;
+    font-weight: bold;
+}
+
+.bar {
+    height: 25px;
+    border-radius: 5px;
+    background: #287b8f;
+    width: var(--width)
+}
+.gc-chart {
+    margin-top: 25px;
+}
+
+.gc-bar-container {
+    width: 100%;
+    height: 25px;
+    background: #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.gc-bar {
+    height: 100%;
+    width: var(--gc-width);
+    background: #287b8f;
+    border-radius: 8px;
+}
+
+.bar-value {
+    margin-left: 10px;
+}
+        .sequence {
+            background: #f5f7f8;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            font-family: monospace;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #68737d;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+        }
+/* =========================================
+   DNA ANALYZER - FINAL UI POLISH
+   ========================================= */
+
+/* Cards */
+.card {
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Result sections */
+.result {
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Result headings */
+.result h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+/* DNA / RNA / sequence display */
+.sequence {
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: "Courier New", monospace;
+    font-size: 15px;
+    letter-spacing: 1px;
+    word-break: break-all;
+    line-height: 1.6;
+}
+
+/* Statistics */
+.stat {
+    border-radius: 12px;
+}
+
+/* Base composition cards */
+.base-composition,
+.composition,
+.chart {
+    border-radius: 14px;
+}
+
+/* GC bar */
+.gc-bar-container {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.gc-bar {
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* Buttons */
+button {
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+/* Text input */
+textarea {
+    border-radius: 12px;
+}
+
+textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(33, 100, 180, 0.15);
+}
+
+/* Better spacing between result sections */
+.result + .result {
+    margin-top: 16px;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 700px) {
+
+    .container {
+        width: 94%;
+        margin: auto;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .result {
+        padding: 16px;
+    }
+
+    .result h3 {
+        font-size: 18px;
+    }
+
+    .sequence {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .stat {
+        padding: 12px;
+    }
+}
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="header">
+
+    <h1>🧬 DNA Analyzer</h1>
+
+    <p>
+        A simple bioinformatics sequence analysis tool
+    </p>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="card">
+
+        <h2>🔬 Analyze a DNA Sequence</h2>
+
+        <p>
+            Enter a DNA sequence manually or upload a FASTA file.
+        </p>
+
+
+        <form method="POST">
+
+            <textarea
+                name="dna"
+                placeholder="Example: ATGCGTAACTGACCTG..."
+            ></textarea>
+
+            <button class="button" type="submit">
+                Analyze DNA
+            </button>
+
+        </form>
+
+
+        <div class="divider">
+            — OR —
+        </div>
+
+
+        <div class="upload">
+
+            <h3>📁 Upload FASTA</h3>
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <input
+                    type="file"
+                    name="fasta_file"
+                    accept=".fasta,.fa,.fna"
+                    required
+                >
+
+                <br>
+
+                <button class="button" type="submit">
+                    Analyze FASTA
+                </button>
+
+            </form>
+
+        </div>
+
+
+        {% if filename %}
+
+        <div class="success">
+
+            ✅ Successfully analyzed:
+
+            <strong>{{ filename }}</strong>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+    {% if error %}
+
+    <div class="error">
+
+        ❌ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if result %}
+
+    <div class="card">
+
+        <h2>📊 Analysis Results</h2>
+
+
+        <div class="result">
+
+            <h3>DNA Sequence</h3>
+
+            <div class="sequence">
+                {{ result.sequence }}
+            </div>
+
+            <p>
+                <strong>Length:</strong>
+                {{ result.length }} bases
+            </p> 
+<div class="chart">
+
+    <h3>📊 Base Composition</h3>
+
+    <div class="bar-row">
+        <div class="bar-label">A</div>
+        <div class="bar" style="--width: {{ (result.A / result.length) * 100 }}%;"></div>
+        <div class="bar-value">{{ result.A }}</div>
+    </div>
+
+    <div class="bar-row">
+        <div class="bar-label">T</div>
+        <div class="bar" style="--width: {{ (result.T / result.length) * 100 }}%;"></div>
+        <div class="bar-value">{{ result.T }}</div>
+    </div>
+
+    <div class="bar-row">
+        <div class="bar-label">G</div>
+        <div class="bar" style="--width: {{ (result.G / result.length) * 100 }}%;"></div>
+        <div class="bar-value">{{ result.G }}</div>
+    </div>
+
+    <div class="bar-row">
+        <div class="bar-label">C</div>
+        <div class="bar" style="--width: {{ (result.C / result.length) * 100 }}%;"></div>
+        <div class="bar-value">{{ result.C }}</div>
+    </div>
+
+</div>
+
+        </div>
+
+
+        <div class="result">
+
+            
+            <p>
+                <strong>GC Content:</strong>
+                <div class="gc-chart">
+    <h3>🧬 GC Content</h3>
+    <div class="gc-bar-container">
+        <div class="gc-bar" style="--gc-width: {{ result.GC }}%;"></div>
+    </div>
+    <p>{{ result.GC }}% GC</p>
+</div>
+
+        </div>
+        <div class="result">
+
+            <h3>🧬 RNA Sequence</h3>
+
+            <div class="sequence">
+                {{ result.RNA }}
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <h3>🔗 Complement</h3>
+
+            <div class="sequence">
+                {{ result.complement }}
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <h3>🔄 Reverse Complement</h3>
+
+            <div class="sequence">
+                {{ result.reverse_complement }}
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <h3>▶️ Open Reading Frame</h3>
+
+            <p>
+                <strong>Start codon position:</strong>
+                {{ result.start_position }}
+            </p>
+
+            <p>
+                <strong>Stop codon position:</strong>
+                {{ result.stop_position }}
+            </p>
+
+            <p>
+                <strong>ORF Sequence:</strong>
+            </p>
+
+            <div class="sequence">
+                {{ result.orf }}
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <h3>🧪 Protein Sequence</h3>
+
+            <div class="sequence">
+                {{ result.protein }}
+            </div>
+
+        </div>
+
+
+    </div>
+
+    {% endif %}
+
+
+ </div>
+
+</div>
+
+
+<div class="footer">
+
+    DNA Analyzer • Bioinformatics Project
+
+</div>
+
+<script>
+async function downloadResults() {
+    const resultSection = document.querySelector(".result");
+
+    if (!resultSection) {
+        alert("Please analyze a DNA sequence first.");
+        return;
+    }
+
+    const button = document.querySelector(".download-section button");
+
+    if (button) {
+        button.innerHTML = "⏳ Creating PDF...";
+        button.disabled = true;
+    }
+
+    try {
+        const canvas = await html2canvas(resultSection, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff",
+            logging: false
+        });
+
+        const { jsPDF } = window.jspdf;
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const pageWidth = 210;
+        const pageHeight = 297;
+
+        const margin = 10;
+
+        const usableWidth = pageWidth - (margin * 2);
+        const usableHeight = pageHeight - (margin * 2);
+
+        // Convert the canvas width to the PDF width
+        const imageHeight =
+            (canvas.height * usableWidth) / canvas.width;
+
+        // Canvas pixels corresponding to one PDF page
+        const pageCanvasHeight =
+            (canvas.width * usableHeight) / usableWidth;
+
+        let sourceY = 0;
+        let pageNumber = 0;
+
+        while (sourceY < canvas.height) {
+
+            const remainingHeight = canvas.height - sourceY;
+
+            const sliceHeight = Math.min(
+                pageCanvasHeight,
+                remainingHeight
+            );
+
+            // Create canvas for this page
+            const pageCanvas = document.createElement("canvas");
+
+            pageCanvas.width = canvas.width;
+            pageCanvas.height = sliceHeight;
+
+            const ctx = pageCanvas.getContext("2d");
+
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(
+                0,
+                0,
+                pageCanvas.width,
+                pageCanvas.height
+            );
+
+            // Copy only this portion of the original canvas
+            ctx.drawImage(
+                canvas,
+                0,
+                sourceY,
+                canvas.width,
+                sliceHeight,
+                0,
+                0,
+                canvas.width,
+                sliceHeight
+            );
+
+            const pageImage = pageCanvas.toDataURL("image/png");
+
+            const currentImageHeight =
+                (sliceHeight * usableWidth) / canvas.width;
+
+            if (pageNumber > 0) {
+                pdf.addPage();
+            }
+
+            pdf.addImage(
+                pageImage,
+                "PNG",
+                margin,
+                margin,
+                usableWidth,
+                currentImageHeight
+            );
+
+            sourceY += sliceHeight;
+            pageNumber++;
+        }
+
+        pdf.save("DNA_Analysis_Report.pdf");
+
+    } catch (error) {
+        console.error(error);
+        alert("Could not create PDF. Please try again.");
+    }
+
+    if (button) {
+        button.innerHTML = "📄 Download Analysis";
+        button.disabled = false;
+    }
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+
+</html>
